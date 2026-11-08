@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#1f6fd6">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Makmal Pintar AI: Prototaip</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap">
+<style>
+:root{--bg:#e8f1ff;--surface:#fff;--soft:#eef4ff;--text:#0f1d44;--muted:#5a6a8f;--line:#d5e0f5;--accent:#1f6fd6;--cyan:#12b8e6;--orange:#ff9f1c;--ok:#1d9e55;--bad:#e5384b;--shadow:0 8px 24px rgba(15,29,68,.14);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#060d26;--surface:#101b44;--soft:#18275f;--text:#eaf1ff;--muted:#a3b3de;--line:#2a3b78;--accent:#2f7fe6;--ok:#2cc46e;--shadow:0 8px 24px rgba(0,0,0,.45)}}
+:root[data-theme="dark"]{--bg:#060d26;--surface:#101b44;--soft:#18275f;--text:#eaf1ff;--muted:#a3b3de;--line:#2a3b78;--accent:#2f7fe6;--ok:#2cc46e;--shadow:0 8px 24px rgba(0,0,0,.45)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;font-family:Fredoka,system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;min-height:100dvh}
+button,input,select{font-family:inherit}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;max-width:600px;margin:0 auto;padding:14px 16px}
+.brand{font-weight:700;font-size:21px}.brand b{color:var(--cyan)}
+.seg{display:flex;background:var(--soft);border-radius:99px;padding:3px}
+.seg button{border:0;background:none;color:var(--muted);font-size:15px;padding:8px 16px;border-radius:99px;cursor:pointer}
+.seg button.on{background:var(--accent);color:#fff}
+.wrap{padding:0 12px 24px;max-width:600px;margin:0 auto}
+.tablet{background:#0a1030;border-radius:26px;padding:9px;box-shadow:var(--shadow)}
+.screen{background:var(--surface);border-radius:19px;min-height:600px;display:flex;flex-direction:column;overflow:hidden}
+.bar{background:var(--accent);color:#fff;padding:13px 14px;display:flex;align-items:center;gap:8px;font-weight:600;font-size:15px}
+.bar .t{flex:1}
+.bk{background:rgba(255,255,255,.22);border:0;color:#fff;width:30px;height:30px;border-radius:50%;font-size:18px;cursor:pointer}
+.dots{display:flex;gap:4px}.dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.35)}.dots i.on{background:#fff}
+.body{padding:14px;display:flex;flex-direction:column;gap:12px;flex:1}
+.btn{border:0;border-radius:14px;background:var(--accent);color:#fff;font-weight:600;padding:13px 16px;font-size:16px;cursor:pointer;width:100%}
+.btn.ghost{background:var(--soft);color:var(--text)}
+.space{background:radial-gradient(circle at 85% 8%,#3b2a8f 0,transparent 45%),linear-gradient(170deg,#08133f,#120a45);color:#fff;align-items:center;text-align:center;padding:26px 20px;gap:10px;justify-content:center}
+.space h1{font-size:46px;margin:0;letter-spacing:1px}.space h1 span{color:#38d5ff}
+.space p{margin:0 0 10px;opacity:.85}
+.planets{font-size:30px;letter-spacing:8px}
+.robot{font-size:92px;line-height:1;animation:fl 3s ease-in-out infinite}
+@keyframes fl{50%{transform:translateY(-8px)}}
+.space input,.space select{width:100%;max-width:300px;padding:12px 14px;border-radius:12px;border:2px solid #3b5bb5;background:#0e1c57;color:#fff;font-size:16px}
+.space .btn{max-width:300px;background:linear-gradient(#22c1f0,#1f7ae0);font-size:20px;padding:15px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{flex:1 1 44%;border:2px solid var(--line);background:var(--soft);color:var(--text);border-radius:14px;padding:10px;font-size:15px;cursor:pointer}
+.chip.on{border-color:var(--accent);background:var(--accent);color:#fff}
+.cam{position:relative;background:#1b2238;color:#cfe3ff;border-radius:16px;padding:20px;overflow:hidden;min-height:210px;display:flex;align-items:center;justify-content:center;text-align:center}
+.frame{position:absolute;inset:12px;border:3px solid rgba(255,255,255,.5);border-radius:12px;pointer-events:none}
+.scan{position:absolute;left:12px;right:12px;height:3px;background:#38d5ff;box-shadow:0 0 14px #38d5ff;animation:sc 1.4s linear}
+@keyframes sc{from{top:12px}to{top:calc(100% - 15px)}}
+.alert{background:var(--bad);color:#fff;border-radius:12px;padding:12px;font-weight:600;text-align:center}
+.cam video,.cam .shot{width:100%;max-height:300px;border-radius:10px;object-fit:cover;display:block}
+label.btn{display:block;text-align:center;cursor:pointer}
+.ai{display:flex;gap:8px}.ai input{flex:1;min-width:0;padding:11px 12px;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--text);font-size:16px}.ai .btn{width:auto;white-space:nowrap}
+.cmp{display:flex;gap:6px;align-items:center;color:var(--text)}
+.cmp figure{flex:1;margin:0;background:var(--soft);border-radius:14px;padding:8px;text-align:center}
+.cmp figure.diff{outline:3px solid var(--bad)}
+figcaption{font-size:13px;font-weight:600;margin-bottom:4px}
+.vs{font-weight:700;color:var(--muted);font-size:13px}
+.sc{width:100%;height:auto;max-height:150px}
+.big-e{font-size:46px;line-height:1.2}.cap{font-size:12px;opacity:.8}
+.note{background:var(--soft);border-radius:14px;padding:12px;font-size:14px;line-height:1.4}.note ul{margin:6px 0 0;padding-left:18px}
+.hint{font-size:13px;color:var(--muted);margin:0}
+.chat{background:var(--soft);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:8px;height:300px;overflow-y:auto}
+.m{display:flex;gap:6px;max-width:90%}.m p{margin:0;padding:9px 12px;border-radius:14px;font-size:15px;line-height:1.35}
+.m.ai p{background:var(--surface);border:1px solid var(--line)}
+.m.me{align-self:flex-end}.m.me p{background:var(--accent);color:#fff}
+.av{font-size:22px}
+.opt{display:block;width:100%;text-align:left;border:2px solid var(--line);background:var(--surface);color:var(--text);border-radius:12px;padding:11px 12px;font-size:15px;cursor:pointer;margin-top:6px}
+.opt:hover{border-color:var(--accent)}
+.opt.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 15%,var(--surface))}
+.msg{color:var(--muted);font-size:14px;min-height:20px;margin:0}
+.win{text-align:center;background:color-mix(in srgb,var(--ok) 14%,var(--surface));border:2px solid var(--ok);border-radius:16px;padding:14px;font-size:22px;font-weight:700;display:grid;gap:8px;animation:pop .35s}
+@keyframes pop{from{transform:scale(.92);opacity:.4}}
+.win p{font-size:14px;font-weight:400;margin:0;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.st{background:var(--soft);border-radius:14px;padding:10px 6px;text-align:center}.st b{display:block;font-size:26px;color:var(--accent)}.st span{font-size:12px;color:var(--muted)}
+.g{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}.g b{min-width:84px}.g .d{flex:1;color:var(--muted)}
+.pill{padding:3px 10px;border-radius:99px;font-size:12px;font-weight:600;background:var(--soft);color:var(--muted)}.pill.s{background:var(--ok);color:#fff}.pill.p{background:var(--orange);color:#1b1200}
+.r{display:grid;grid-template-columns:132px 1fr 26px;gap:8px;align-items:center;font-size:13px;margin:7px 0}
+.track{height:12px;background:var(--soft);border-radius:9px;overflow:hidden}.track i{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--accent));border-radius:9px;transition:width .4s}
+h3{margin:0 0 4px;font-size:16px}
+.foot{text-align:center;font-size:12px;color:var(--muted);margin:10px 0 0}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+:root{padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px);-webkit-text-size-adjust:100%}
+.dgrid{display:flex;flex-direction:column;gap:12px}
+@media (pointer:coarse){.seg button{padding:11px 18px}.bk{width:40px;height:40px}.chip,.opt{min-height:48px}}
+@media (min-width:720px){.wrap,.top{max-width:880px}.tablet{padding:12px;border-radius:34px}.screen{min-height:660px;border-radius:24px}.body{padding:22px;gap:16px}.bar{padding:16px 20px;font-size:17px}.chat{height:360px}.sc{max-height:220px}.big-e{font-size:68px}.cam{min-height:260px}.cam video,.cam .shot{max-height:380px}.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.st b{font-size:32px}.r{grid-template-columns:170px 1fr 30px}.space h1{font-size:60px}.robot{font-size:120px}.space .btn,.space input,.space select{max-width:360px}}
+@media (orientation:landscape) and (max-height:520px){.screen{min-height:0}.space{padding:14px}.robot{font-size:56px}.chat{height:200px}}
+</style>
+</head>
+<body>
+<div class="top"><div class="brand">Makmal Pintar <b>AI</b></div>
+<div class="seg" role="group" aria-label="Mod paparan"><button data-a="mode" data-v="murid">Murid</button><button data-a="mode" data-v="guru">Guru</button></div></div>
+<main id="app"></main>
+<script>
+const EXP={
+litar:{n:'Litar elektrik',e:'💡',err:'Mentol tidak menyala',cats:[0],
+ marks:['Laluan wayar di sebelah kanan litar'],
+ qs:[
+  {q:'Mengapa mentol tidak menyala? Fikirkan: apakah yang diperlukan supaya arus elektrik dapat mengalir?',p:'Betul! Arus hanya mengalir dalam litar yang lengkap.',o:[
+   ['Litar mesti lengkap dan bertutup',1],
+   ['Mentol perlu lebih besar',0,'Saiz mentol tidak menentukan sama ada arus mengalir. Cuba ikut laluan arus dari bateri dan kembali semula ke bateri.'],
+   ['Bateri mesti ditukar baharu',0,'Bateri anda masih baik. Apa lagi yang perlu ada pada laluan arus?']]},
+  {q:'Sekarang ikut wayar dengan jari anda. Di manakah litar anda tidak lengkap?',p:'Tepat sekali! Anda sendiri yang menjumpainya.',o:[
+   ['Di wayar sebelah kanan (ada celah)',1],
+   ['Di dalam bateri',0,'Semak bahagian yang boleh dilihat dengan mata. Adakah semua wayar bersambung?'],
+   ['Di bahagian mentol',0,'Mentol nampak terpasang kemas. Teruskan menjejak wayar ke bahagian lain.']]}],
+ fixes:[['🔋 Tukar bateri baharu',0],['🔌 Sambungkan wayar yang terputus',1]],
+ win:'Litar berfungsi!',sum:'Litar yang tertutup membolehkan arus mengalir, maka mentol menyala.'},
+benih:{n:'Percambahan biji benih',e:'🌱',err:'Biji benih tidak bercambah',cats:[1,2],
+ marks:['Keadaan tanah','Tempat letak pasu'],
+ qs:[
+  {q:'Apakah yang diperlukan oleh biji benih untuk bercambah?',p:'Betul! Semua syarat itu perlu dipenuhi.',o:[
+   ['Air, udara dan suhu yang sesuai',1],
+   ['Hanya cahaya matahari',0,'Biji benih dalam tanah pun boleh bercambah tanpa cahaya. Fikirkan apa yang diperlukan biji kacang semasa direndam.'],
+   ['Hanya baja',0,'Baja membantu pokok membesar kemudian. Apa yang diperlukan biji benih pada peringkat awal?']]},
+  {q:'Sekarang lihat tanah dan tempat letak pasu anda. Syarat yang manakah belum dipenuhi?',p:'Tepat! Anda sudah tahu apa yang perlu diperbaiki.',o:[
+   ['Tanah terlalu kering dan tempat terlalu sejuk',1],
+   ['Biji benih terlalu kecil',0,'Saiz biji tidak menghalang percambahan. Bandingkan semula gambar anda dengan gambar yang betul.'],
+   ['Pasu terlalu besar',0,'Saiz pasu bukan syarat percambahan. Lihat semula tanah dan suhu tempat itu.']]}],
+ fixes:[['🫘 Tambah lebih banyak biji benih',0],['💧 Tambah air secukupnya',1],['🌡️ Alihkan ke tempat bersuhu bilik',1]],
+ win:'Biji benih bercambah!',sum:'Air, udara dan suhu yang sesuai membolehkan biji benih bercambah.'}};
+EXP.benih.s={n:2,b:['🫘','🏜️ Tanah kering','❄️ Dalam peti sejuk'],g:['🌱','💧 Tanah lembap','🌡️ Suhu bilik']};
+EXP.magnet={n:'Magnet menarik objek',e:'🧲',err:'Magnet tidak menarik objek',cats:[5],marks:['Bahan objek yang diuji'],
+ qs:[{q:'Apakah jenis bahan yang boleh ditarik oleh magnet?',p:'Betul! Hanya bahan magnet seperti besi dan keluli yang ditarik.',o:[['Bahan magnet seperti besi',1],['Semua jenis logam',0,'Tidak semua logam. Adakah syiling aluminium dan klip besi bertindak sama?'],['Semua bahan yang berat',0,'Berat tidak menentukan. Fikirkan jenis bahan, bukan beratnya.']]},
+  {q:'Lihat objek yang anda uji. Apakah masalahnya?',p:'Tepat! Anda telah mengenal pasti puncanya.',o:[['Objek diperbuat daripada plastik, bukan bahan magnet',1],['Magnet terlalu kecil',0,'Magnet kecil pun boleh menarik klip besi. Lihat semula objek yang diuji.'],['Meja terlalu licin',0,'Permukaan meja tidak menghalang tarikan magnet. Fokus pada objek itu sendiri.']]}],
+ fixes:[['📏 Dekatkan magnet lebih lama',0],['🔩 Gantikan dengan klip besi',1]],win:'Magnet menarik klip!',sum:'Magnet hanya menarik bahan magnet seperti besi.',
+ s:{n:1,b:['🧲🥄','Objek: sudu plastik','Tiada tarikan'],g:['🧲🔩','Objek: klip besi','Ada tarikan']}};
+EXP.larut={n:'Gula melarut dalam air',e:'🥛',err:'Gula tidak larut',cats:[5],marks:['Suhu air','Cara menyediakan larutan'],
+ qs:[{q:'Apakah yang boleh membantu gula melarut lebih cepat dalam air?',p:'Betul! Suhu dan pergerakan mempengaruhi kelajuan melarut.',o:[['Air yang lebih suam dan dikacau',1],['Menambah lebih banyak gula',0,'Lebih banyak gula menjadikan larutan lebih pekat dan sukar larut. Fikirkan keadaan air.'],['Menutup bekas',0,'Penutup tidak mengubah kelajuan melarut. Fikirkan suhu dan pergerakan.']]},
+  {q:'Lihat semula eksperimen anda. Apa yang belum dilakukan?',p:'Tepat! Sekarang cuba betulkan.',o:[['Air masih sejuk dan gula tidak dikacau',1],['Gelas terlalu kecil',0,'Saiz gelas bukan puncanya. Bandingkan suhu air dan cara anda menyediakan larutan.'],['Gula terlalu putih',0,'Warna gula tidak menjejaskan keterlarutan. Lihat semula suhu air dan kacauan.']]}],
+ fixes:[['🧂 Tambah lebih banyak gula',0],['♨️ Gunakan air suam',1],['🥄 Kacau larutan',1]],win:'Gula melarut!',sum:'Air suam dan kacauan membantu gula melarut lebih cepat.',
+ s:{n:2,b:['🥛','🧊 Air sejuk','⏸️ Tidak dikacau'],g:['🍵','♨️ Air suam','🥄 Dikacau']}};
+const CATN=['Litar tidak lengkap','Tanah kering','Suhu tidak sesuai','Salah faham konsep','Penyelesaian tidak berkaitan','Ralat eksperimen lain'];
+const okx=x=>x&&x.n&&x.s&&x.s.b&&x.s.g&&x.s.b.length==3&&x.s.g.length==3&&(x.s.n==1||x.s.n==2)&&Array.isArray(x.fixes)&&x.fixes.length==x.s.n+1&&!x.fixes[0][1]&&x.fixes.slice(1).every(f=>f[1])&&Array.isArray(x.marks)&&x.marks.length>0&&Array.isArray(x.qs)&&x.qs.length==2&&x.qs.every(q=>q.q&&q.p&&q.o&&q.o.length==3&&q.o[0][1]==1&&q.o[1][1]==0&&q.o[2][1]==0&&q.o[1][2]&&q.o[2][2]);
+const clean=v=>typeof v=='string'?esc(v):Array.isArray(v)?v.map(clean):v&&typeof v=='object'?Object.fromEntries(Object.entries(v).map(([k,x])=>[k,clean(x)])):v;
+const PROMPT=t=>`Anda pakar Sains KSSR sekolah rendah Malaysia. Cipta satu eksperimen yang gagal untuk topik “${t}”: murid melakukannya tetapi tidak berjaya kerana satu atau dua kesilapan. Jawab dalam Bahasa Melayu yang mudah, dengan JSON sahaja (tiada teks lain, tiada markdown) mengikut bentuk ini:
+{"n":"nama eksperimen","e":"satu emoji","err":"gejala yang murid nampak","marks":["kawasan yang berbeza, jangan nyatakan punca"],"s":{"n":1,"b":["emoji gagal","pemerhatian 1 gagal","pemerhatian 2 gagal"],"g":["emoji berjaya","pemerhatian 1 betul","pemerhatian 2 betul"]},"qs":[{"q":"soalan konsep","p":"pujian ringkas","o":[["jawapan betul",1],["jawapan salah",0,"petunjuk tanpa memberi jawapan"],["jawapan salah",0,"petunjuk"]]},{"q":"soalan mengenal pasti punca dalam eksperimen murid","p":"pujian ringkas","o":[["betul",1],["salah",0,"petunjuk"],["salah",0,"petunjuk"]]}],"fixes":[["emoji dan langkah tidak berkaitan",0],["emoji dan langkah betul",1]],"win":"mesej berjaya pendek","sum":"satu ayat kesimpulan sains"}
+Peraturan: s.n ialah bilangan kesilapan (1 atau 2). fixes mesti ada s.n+1 item: item pertama tidak berkaitan (0), selebihnya betul (1). Jika s.n ialah 2, pemerhatian 1 dibetulkan oleh langkah betul pertama dan pemerhatian 2 oleh langkah betul kedua. Jika s.n ialah 1, satu langkah betul mengubah kedua-dua pemerhatian.`;
+const SUG=['Ulang aktiviti litar tertutup dengan kad urutan sebelum eksperimen.','Tunjukkan perbezaan biji benih dalam tanah kering dan tanah lembap.','Bincangkan syarat suhu menggunakan dua pasu: suhu bilik dan peti sejuk.','Mulakan sesi dengan soalan ramalan untuk menguji syarat asas.','Galakkan murid menjejak punca dahulu sebelum mencuba penyelesaian.','Bincangkan ralat eksperimen ini bersama kelas dan minta murid menerangkan puncanya.'];
+const B={sess:10,ok:7,att:23,hints:13};
+const cat=[6,4,3,5,2,1];
+const NAMES=['','Log masuk','Imbasan ralat','Diagnostik AI','Bimbingan Sokratik','Pembetulan dan cuba lagi'];
+const S={mode:'murid',step:1,started:0,name:'',grp:'1',exp:'litar',scanned:0,scanning:0,qi:0,chat:[],typing:0,fixed:{},done:0,msg:'',att:0,hints:0,runs:0};
+const E=()=>EXP[S.exp];
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function scene(a,b){
+ if(S.exp!='litar'&&E().s){const X=E().s,two=X.n==2,all=two?a&&b:a,L=(two?b:a)?X.g:X.b;return `<div><div class="big-e">${(all?X.g:X.b)[0]}</div><div class="cap">${(a?X.g:X.b)[1]}<br>${L[2]}</div></div>`}
+ if(S.exp=='litar'){
+  const d=a?'M136 40H200V110H40V72':'M136 40H200V68M200 84V110H40V72';
+  const mk=a?'<circle cx="120" cy="40" r="27" stroke="#ffd23f" stroke-opacity=".6" stroke-dasharray="3 7" stroke-width="3"/>':(S.step>=3?'<circle cx="200" cy="76" r="11" stroke="#ff4d5e" stroke-dasharray="4 4" stroke-width="3"/>':'');
+  return `<svg class="sc" viewBox="0 0 240 150" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Gambar litar elektrik"><path d="M40 64V40H104"/><path d="${d}"/><path d="M28 64H52M34 72H46" stroke-width="5"/><circle cx="120" cy="40" r="16" fill="${a?'#ffd23f':'none'}"/>${mk}</svg>`;
+ }
+ return `<div><div class="big-e">${a&&b?'🌱':'🫘'}</div><div class="cap">${a?'💧 Tanah lembap':'🏜️ Tanah kering'}<br>${b?'🌡️ Suhu bilik':'❄️ Dalam peti sejuk'}</div></div>`;
+}
+const bar=i=>`<div class="bar">${i>2?`<button class="bk" data-a="go" data-v="${i-1}" aria-label="Kembali">‹</button>`:''}<span class="t">${i-1}. ${NAMES[i]}</span><span class="dots">${[2,3,4,5].map(n=>`<i class="${n<=i?'on':''}"></i>`).join('')}</span></div>`;
+
+function v1(){return `<div class="screen body space"><div class="planets">🪐 🌍 ✨</div><div class="robot">🤖</div><h1>SAINS <span>AI</span></h1><p>Pembelajaran sains untuk murid</p><input id="nm" placeholder="Nama murid" maxlength="24" value="${esc(S.name)}" aria-label="Nama murid"><select id="gr" aria-label="Kumpulan">${[1,2,3].map(n=>`<option value="${n}" ${S.grp==n?'selected':''}>Kumpulan ${n}</option>`).join('')}</select><button class="btn" data-a="start">Mula</button></div>`}
+
+function aiRow(){if(!S.ai||S.scanned||S.cam||S.scanning)return '';return `<div class="ai"><input id="cx" placeholder="Eksperimen lain, cth: bayang-bayang" maxlength="40" value="${esc(S.cx||'')}" aria-label="Nama eksperimen lain"><button class="btn" data-a="gen" ${S.gen?'disabled':''}>${S.gen?'Mencipta…':'✨ Cipta dengan AI'}</button></div>${S.gen?'<p class="hint">AI sedang mencipta eksperimen. Ini mungkin mengambil masa sehingga satu minit.</p>':''}${S.genErr?`<p class="msg">${S.genErr}</p>`:''}`}
+function v2(){return `<div class="screen">${bar(2)}<div class="body"><div class="chips">${Object.keys(EXP).map(k=>`<button class="chip ${S.exp==k?'on':''}" data-a="pick" data-v="${k}">${EXP[k].e} ${EXP[k].n}</button>`).join('')}</div>${aiRow()}<div class="cam">${S.cam?'<video id="vid" autoplay muted playsinline></video>':S.photo?`<img class="shot" src="${S.photo}" alt="Gambar eksperimen anda">`:scene(0,0)}<div class="frame"></div>${S.scanning?'<div class="scan"></div>':''}</div>${S.scanned?`<div class="alert">⚠️ Ralat dikesan: ${E().err}</div><button class="btn" data-a="go" data-v="3">Lihat diagnostik AI</button>`:S.cam?`<p class="hint">Halakan kamera pada eksperimen anda, kemudian ambil gambar.</p><button class="btn" data-a="snap">📸 Ambil gambar dan imbas</button>`:`${S.scanning?'<button class="btn" disabled>Mengimbas…</button>':`<label class="btn">📷 Ambil gambar eksperimen<input type="file" id="pic" accept="image/*" capture="environment" hidden></label><button class="btn ghost" data-a="cam">Kamera langsung</button><button class="btn ghost" data-a="scan">Guna gambar contoh</button>`}`}${S.camErr?`<p class="msg">${S.camErr}</p>`:''}</div></div>`}
+
+function v3(){const m=E().marks;return `<div class="screen">${bar(3)}<div class="body"><div class="cmp"><figure class="diff"><figcaption>Eksperimen anda</figcaption>${scene(0,0)}</figure><span class="vs">VS</span><figure><figcaption>Sepatutnya</figcaption>${scene(1,1)}</figure></div><div class="note"><b>AI menemui ${m.length} kawasan yang berbeza</b><ul>${m.map(x=>`<li>${x}</li>`).join('')}</ul></div><p class="hint">AI menunjukkan di mana untuk melihat, bukan puncanya. Anda akan mencarinya bersama Cikgu AI.</p><button class="btn" data-a="go" data-v="4">Mulakan bimbingan</button></div></div>`}
+
+function v4(){const qs=E().qs,q=qs[S.qi];return `<div class="screen">${bar(4)}<div class="body"><div class="chat" aria-live="polite">${S.chat.map(m=>`<div class="m ${m.f}">${m.f=='ai'?'<span class="av">🤖</span>':''}<p>${m.t}</p></div>`).join('')}${S.typing?'<div class="m ai"><span class="av">🤖</span><p>…</p></div>':''}</div><div>${S.typing?'':q?q.o.map((o,i)=>`<button class="opt" data-a="ans" data-v="${i}">${o[0]}</button>`).join(''):'<button class="btn" data-a="go" data-v="5">Cuba betulkan eksperimen</button>'}</div></div></div>`}
+
+function v5(){const F=S.fixed;return `<div class="screen">${bar(5)}<div class="body"><div class="cmp"><figure style="${S.done?'outline:3px solid var(--ok)':''}"><figcaption>${S.done?'Selepas dibetulkan':'Eksperimen anda'}</figcaption>${scene(!!F[1],!!F[2])}</figure></div>${S.done?`<div class="win">✅ ${E().win}<p>${E().sum}</p><button class="btn" data-a="mode" data-v="guru">Hantar data kepada guru</button><button class="btn ghost" data-a="again">Cuba eksperimen lain</button></div>`:`<div>${E().fixes.map((f,i)=>`<button class="opt ${F[i]?'ok':''}" data-a="fix" data-v="${i}" ${F[i]?'disabled':''}>${f[0]}${F[i]?' ✓':''}</button>`).join('')}</div><p class="msg" aria-live="polite">${S.msg||'Pilih langkah pembetulan, kemudian lihat hasilnya.'}</p>`}</div></div>`}
+
+function dash(){
+ const r=S.runs,rate=Math.round((B.ok+r)/(B.sess+r)*100),avg=((B.att+S.att)/(B.sess+r)).toFixed(1),h=B.hints+S.hints;
+ const mx=Math.max(...cat),top=cat.indexOf(mx);
+ const st=S.done?['Selesai','s']:!S.started?['Belum mula','']:[['Log masuk','p'],['Log masuk','p'],['Mengimbas eksperimen','p'],['Menyemak diagnostik','p'],['Dibimbing Cikgu AI','p'],['Membetulkan eksperimen','p']][S.step];
+ return `<div class="screen"><div class="bar"><span class="t">Papan pemuka guru</span><span>KSSR Sains</span></div><div class="body">
+ <div class="stats"><div class="st"><b>${rate}%</b><span>Pembetulan berjaya</span></div><div class="st"><b>${avg}</b><span>Purata cubaan</span></div><div class="st"><b>${h}</b><span>Bimbingan AI</span></div></div>
+ <div class="dgrid"><div><h3>Kumpulan</h3>
+ <div class="g"><b>Kumpulan ${S.grp}</b><span class="d">${S.started?esc(S.name)+', '+E().n:'Belum ada murid'}</span><span class="pill ${st[1]}">${st[0]}</span></div>
+ <div class="g"><b>Kumpulan 2</b><span class="d">Percambahan biji benih</span><span class="pill p">Dibimbing Cikgu AI</span></div>
+ <div class="g"><b>Kumpulan 3</b><span class="d">Litar elektrik</span><span class="pill s">Selesai</span></div></div>
+ <div><h3>Ralat lazim kelas</h3>${cat.map((v,i)=>`<div class="r"><span>${CATN[i]}</span><div class="track"><i style="width:${v/Math.max(mx,1)*100}%"></i></div><b>${v}</b></div>`).join('')}</div>
+ </div>
+ <div class="note"><b>Cadangan AI untuk guru</b><br>Ralat paling kerap: ${CATN[top]}. ${SUG[top]}</div></div></div>`}
+
+function render(){
+ document.getElementById('app').innerHTML=`<div class="wrap"><div class="tablet">${S.mode=='guru'?dash():[0,v1,v2,v3,v4,v5][S.step]()}</div><p class="foot">Prototaip demo. Kamera sebenar digunakan, tetapi analisis AI disimulasi. Gambar tidak dihantar atau disimpan.</p></div>`;
+ document.querySelectorAll('.seg button').forEach(b=>b.classList.toggle('on',b.dataset.v==S.mode));
+ const c=document.querySelector('.chat');if(c)c.scrollTop=c.scrollHeight;
+ const v=document.getElementById('vid');if(v&&stream){v.srcObject=stream;v.play().catch(()=>{})}
+}
+let stream=null;
+function stopCam(){if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}S.cam=0}
+function reset(k){stopCam();S.photo='';S.camErr='';S.exp=k;S.scanned=0;S.scanning=0;S.qi=0;S.chat=[];S.typing=0;S.fixed={};S.done=0;S.msg=''}
+
+const A={
+ mode(v){stopCam();S.mode=v;render()},
+ start(){S.name=document.getElementById('nm').value.trim()||'Murid';S.grp=document.getElementById('gr').value;S.started=1;A.go(2)},
+ go(n){stopCam();S.step=+n;S.mode='murid';
+  if(S.step==4&&!S.chat.length)E().qs.forEach(q=>q.o.sort(()=>Math.random()-.5));
+  if(S.step==4&&!S.chat.length)S.chat.push({f:'ai',t:'Hai '+esc(S.name)+'! Saya tidak akan memberi jawapan terus. Saya akan bertanya beberapa soalan untuk membantu anda berfikir. '+E().qs[0].q});
+  window.scrollTo(0,0);render()},
+ pick(k){if(S.exp!=k){reset(k);render()}},
+ async cam(){
+  if(!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)){S.camErr='Kamera langsung tidak disokong di sini. Guna “Ambil gambar eksperimen”.';return render()}
+  try{stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false});S.cam=1;S.camErr=''}
+  catch(e){S.camErr='Kamera langsung disekat di sini. Guna “Ambil gambar eksperimen” untuk membuka kamera telefon anda.'}
+  render()},
+ async gen(){const t=(S.cx||'').trim();if(!t||S.gen||!SM)return;S.gen=1;S.genErr='';render();
+  try{const x=await SM.json(PROMPT(t));if(x&&x.s)x.s.n=+x.s.n;if(!okx(x))throw 0;x.cats=[5];x.e=x.e||'🔬';EXP.custom=clean(x);reset('custom')}
+  catch(e){S.genErr=e&&e.code=='not_granted'?'Akses AI tidak dibenarkan. Anda masih boleh guna eksperimen sedia ada.':'Eksperimen tidak dapat dicipta. Cuba nama lain atau cuba lagi sebentar nanti.'}
+  S.gen=0;render()},
+ file(f){if(!f)return;const im=new Image(),u=URL.createObjectURL(f);
+  im.onload=()=>{const w=Math.min(im.width,640),c=document.createElement('canvas');c.width=w;c.height=Math.round(im.height*w/im.width);c.getContext('2d').drawImage(im,0,0,c.width,c.height);S.photo=c.toDataURL('image/jpeg',.8);URL.revokeObjectURL(u);A.scan()};
+  im.onerror=()=>{S.camErr='Gambar tidak dapat dibaca. Cuba lagi.';render()};im.src=u},
+ snap(){const v=document.getElementById('vid');if(!v||!v.videoWidth)return;
+  const c=document.createElement('canvas'),w=Math.min(v.videoWidth,640);c.width=w;c.height=Math.round(v.videoHeight*w/v.videoWidth);
+  c.getContext('2d').drawImage(v,0,0,c.width,c.height);S.photo=c.toDataURL('image/jpeg',.8);stopCam();A.scan()},
+ scan(){S.scanning=1;render();setTimeout(()=>{S.scanning=0;S.scanned=1;render()},1400)},
+ ans(i){if(S.typing)return;const q=E().qs[S.qi],o=q.o[i];S.chat.push({f:'me',t:o[0]});S.typing=1;S.hints++;render();
+  setTimeout(()=>{S.typing=0;
+   if(o[1]){S.chat.push({f:'ai',t:q.p});S.qi++;const n=E().qs[S.qi];S.chat.push({f:'ai',t:n?n.q:'Sekarang cuba betulkan eksperimen anda dan uji semula.'})}
+   else{cat[3]++;S.chat.push({f:'ai',t:o[2]})}
+   render()},700)},
+ fix(i){const f=E().fixes[i];S.att++;
+  if(f[1]){S.fixed[i]=1;S.msg='';
+   if(E().fixes.every((x,j)=>!x[1]||S.fixed[j])){S.done=1;S.runs++;E().cats.forEach(c=>cat[c]++)}
+   else S.msg='Bagus! Masih ada satu lagi yang perlu dibetulkan.'}
+  else{cat[4]++;S.msg='Belum berjaya. Fikir semula puncanya, atau kembali bertanya Cikgu AI.'}
+  render()},
+ again(){reset(S.exp=='litar'?'benih':'litar');A.go(2)}
+};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b&&!b.disabled)A[b.dataset.a](b.dataset.v)});
+document.addEventListener('change',e=>{if(e.target.id=='pic')A.file(e.target.files[0])});
+document.addEventListener('input',e=>{if(e.target.id=='cx')S.cx=e.target.value});
+document.addEventListener('keydown',e=>{if(e.key!='Enter')return;if(e.target.id=='nm')A.start();if(e.target.id=='cx')A.gen()});
+let SM=null;
+if(window.claude&&claude.use)claude.use('sample').then(s=>{if(s){SM=s;S.ai=1;render()}}).catch(()=>{});
+render();
+</script>
+</body>
+</html>
